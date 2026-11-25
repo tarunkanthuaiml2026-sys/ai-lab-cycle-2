@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1320">
+  <title>Hackathon Hub — Teams</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body data-page="teams">
+  <aside class="sidebar">
+    <a class="brand" href="index.html" aria-label="Hackathon Hub home">
+      <span class="brand-mark">H<span>·</span></span>
+      <span class="brand-name">HACKATHON<br>HUB</span>
+    </a>
+    <div class="sidebar-label">WORKSPACE</div>
+    <nav class="side-nav" aria-label="Main navigation">
+      <a class="nav-link" href="index.html"><span class="nav-icon">⌂</span>Dashboard</a>
+      <a class="nav-link active" href="teams.html" aria-current="page"><span class="nav-icon">◈</span>Hackathon Teams</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-note-icon">✳</div>
+      <p>Great things happen<br>when we build together.</p>
+      <span>BUILD SOMETHING BRAVE</span>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div class="breadcrumb">HACKATHON HUB <span>/</span> YOUR TEAMS</div>
+      <a class="topbar-team-link" href="index.html"><span aria-hidden="true">←</span> Explore hackathons</a>
+    </header>
+    <section class="page-wrap teams-page">
+      <div class="teams-hero">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> THE PEOPLE BEHIND THE PITCH</div>
+          <h1>Better ideas.<br><span>Built together.</span></h1>
+          <p class="hero-copy">Find your people, make a plan, and turn the late-night brainstorm into something real.</p>
+        </div>
+        <button class="primary-button create-team-button" id="open-team-form" type="button"><span>＋</span> Create Team</button>
+      </div>
+
+      <section class="my-teams-section" aria-label="My Teams">
+        <div class="section-heading">
+          <div><span class="section-kicker">YOUR BUILDS, ALL IN ONE PLACE</span><h2>My Teams <span class="heading-dot">.</span></h2></div>
+          <span class="workspace-label">SWITCH WORKSPACE</span>
+        </div>
+        <div class="my-team-switcher" id="my-team-switcher" role="tablist" aria-label="Your teams"></div>
+      </section>
+
+      <section class="open-teams-section">
+        <div class="section-heading">
+          <div><span class="section-kicker">GOOD PEOPLE, GOOD PROJECTS</span><h2>Open teams <span class="heading-dot">.</span></h2></div>
+          <div class="open-team-actions">
+            <form class="join-code-form" id="join-code-form">
+              <label class="sr-only" for="join-code-input">Join with Code</label>
+              <input id="join-code-input" name="joinCode" placeholder="Join with Code" autocomplete="off" required>
+              <button type="submit">Join <span>→</span></button>
+            </form>
+            <span class="open-status"><span class="live-dot"></span> Recruiting now</span>
+          </div>
+        </div>
+        <div class="open-team-grid" id="open-team-list"></div>
+      </section>
+
+      <section class="workspace-section">
+        <div class="section-heading">
+          <div><span class="section-kicker">YOUR CURRENT BUILD</span><h2>Team workspace <span class="heading-dot">.</span></h2></div>
+          <span class="team-visibility-badge" id="team-visibility-badge"></span>
+        </div>
+        <div class="workspace-card" id="team-workspace" aria-live="polite"></div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="team-modal" hidden>
+    <section class="team-modal" role="dialog" aria-modal="true" aria-labelledby="team-modal-title">
+      <button class="modal-close" id="close-team-form" type="button" aria-label="Close">×</button>
+      <div class="eyebrow"><span class="eyebrow-line"></span> MAKE ROOM FOR GREATNESS</div>
+      <h2 id="team-modal-title">Start a team<span class="heading-dot">.</span></h2>
+      <p class="modal-copy">Set the vibe. The right people will find you.</p>
+      <form id="create-team-form">
+        <label class="form-label" for="team-name">TEAM NAME</label>
+        <input class="form-input" id="team-name" name="teamName" placeholder="e.g. The Midnight Builders" required>
+        <label class="form-label" for="hackathon-name">HACKATHON</label>
+        <input class="form-input" id="hackathon-name" name="hackathonName" placeholder="Which hackathon are you joining?" required>
+        <label class="form-label" for="team-creator-name">YOUR NAME</label>
+        <input class="form-input" id="team-creator-name" name="creatorName" placeholder="How teammates will know you" required>
+        <label class="form-label" for="team-roles">WHO ARE YOU LOOKING FOR?</label>
+        <input class="form-input" id="team-roles" name="roles" placeholder="Frontend, AIML, designer…" required>
+        <span class="form-label access-label">WHO CAN JOIN?</span>
+        <div class="access-options">
+          <label class="access-choice"><input type="radio" name="access" value="open" checked><span><strong>Open</strong><small>Anyone can join from the list</small></span></label>
+          <label class="access-choice"><input type="radio" name="access" value="code"><span><strong>Code Only</strong><small>Join with your private code</small></span></label>
+        </div>
+        <div class="join-code-field" id="join-code-field" hidden>
+          <label class="form-label" for="team-join-code">CUSTOM JOIN CODE</label>
+          <input class="form-input" id="team-join-code" name="joinCode" placeholder="e.g. ROBO-27" autocomplete="off">
+        </div>
+        <button class="primary-button modal-submit" type="submit">Create your team <span>→</span></button>
+      </form>
+    </section>
+  </div>
+
+  <template id="team-workspace-template">
+    <div class="workspace-header">
+      <div class="workspace-title-wrap">
+        <span class="project-monogram" data-workspace="monogram"></span>
+        <div><span class="workspace-overline" data-workspace="hackathon"></span><h3 data-workspace="name"></h3></div>
+      </div>
+      <div class="workspace-team-code" data-workspace="code" hidden></div>
+    </div>
+    <section class="meet-banner">
+      <div class="meet-icon">↗</div>
+      <div class="meet-info"><span>NEXT G MEET</span><strong data-workspace="meet-time"></strong><small data-workspace="meet-topic"></small></div>
+      <div class="meet-actions">
+        <a class="meet-join-button" target="_blank" rel="noopener noreferrer" data-workspace="meet-link" hidden>Join Meet <span>↗</span></a>
+      </div>
+    </section>
+    <form class="meet-form" data-action="save-meet">
+      <label class="sr-only" for="meet-topic">Meeting topic</label>
+      <input id="meet-topic" name="topic" type="text" placeholder="Meeting topic" aria-label="Meeting topic" required>
+      <label class="sr-only" for="meet-date-time">Meeting date and time</label>
+      <input id="meet-date-time" name="dateTime" type="datetime-local" aria-label="Meeting date and time" required>
+      <label class="sr-only" for="meet-link-input">Google Meet link</label>
+      <input id="meet-link-input" name="link" type="url" placeholder="https://meet.google.com/…" aria-label="Google Meet link" required>
+      <button class="ghost-button" type="submit">Save G Meet</button>
+      <button class="ghost-button" type="button" data-action="clear-meet" hidden>Clear</button>
+    </form>
+    <div class="workspace-roster-section">
+      <div class="workspace-subheading"><span>SQUAD ROSTER</span><span data-workspace="roster-count"></span></div>
+      <div class="squad-roster" data-workspace="roster"></div>
+      <form class="add-member-form" data-action="add-member">
+        <input name="member" type="text" placeholder="Add a teammate…" aria-label="New team member" required>
+        <button type="submit">＋ Add member</button>
+      </form>
+    </div>
+    <div class="project-list">
+      <div class="workspace-subheading task-checklist-heading"><span>TASK CHECKLIST</span><span data-workspace="task-progress"></span></div>
+      <div class="task-list" data-workspace="tasks"></div>
+      <form class="add-task-form" data-action="add-task">
+        <input name="task" type="text" placeholder="Add a task…" aria-label="New team task" required>
+        <input name="person" type="text" placeholder="Person" aria-label="Task owner" required>
+        <input name="deadline" type="text" placeholder="Deadline" aria-label="Task deadline" required>
+        <button type="submit" aria-label="Add task">＋ Add task</button>
+      </form>
+    </div>
+  </template>
+</body>
+</html>
